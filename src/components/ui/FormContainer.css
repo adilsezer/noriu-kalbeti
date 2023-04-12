@@ -1,0 +1,46 @@
+.form-container {
+  margin: 50px auto;
+  padding: 40px;
+  width: 360px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.form-container a {
+  text-decoration: none; /* remove underline */
+  color: #232323;
+}
+
+.form-container a:hover {
+  color: #c53636;
+}
+
+.form-container input[type="checkbox"] {
+  width: 25px !important;
+  height: 25px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid rgb(193, 192, 192);
+  box-shadow: none;
+  text-align: center;
+  background: white;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+.form-container input[type="checkbox"]:checked:after {
+  content: "✔";
+  font-size: 20px;
+  color: red;
+}
+
+.form-container label {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,17 @@
+.button-component {
+  text-transform: uppercase;
+  width: 50%;
+  border: 0;
+  border-radius: 25px;
+  padding: 15px;
+  color: #f2f2f2;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 20px;
+  background: #e9342d;
+  text-align: center;
+}
+
+.button-component:active {
+  background: #395591;
+}

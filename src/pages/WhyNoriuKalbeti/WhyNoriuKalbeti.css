@@ -1,0 +1,15 @@
+.content-image {
+  width: 40%;
+}
+
+.content-container,
+.main-content-text {
+  display: flex;
+  flex-grow: 1;
+}
+
+.main-content-text {
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}

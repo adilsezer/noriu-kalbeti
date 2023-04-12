@@ -1,0 +1,23 @@
+.input-component {
+  border: none;
+  border-bottom: 1px solid #323131;
+  font-size: 1.2em;
+  color: #323131;
+  padding: 20px 15px 5px 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  width: 275px;
+}
+
+.input-component:focus {
+  outline: none;
+  border-bottom: 1px solid #c6304b;
+}
+
+.input-component::placeholder {
+  color: #999; /* set the placeholder color */
+}
+
+.input-component:focus::placeholder {
+  color: transparent; /* make the placeholder text transparent on focus */
+}

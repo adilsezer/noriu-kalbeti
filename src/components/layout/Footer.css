@@ -1,0 +1,32 @@
+.footer-text {
+  font-size: 1.2rem;
+}
+
+.footer-text,
+.footer-copyright {
+  width: 100%;
+  margin: 20px;
+}
+
+.footer-icons {
+  margin-left: 15px;
+  display: inline-block;
+}
+
+.footer-container {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 96%;
+  background-color: #000000;
+  height: 1px;
+}
