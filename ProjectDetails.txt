@@ -1,0 +1,39 @@
+www.noriukalbeti.lt
+
+Students can login using any link. We need some kind of verification
+
+Seperate meeting and amount info into two different month
+
+---------------------------------
+
+History of lesson dates: You had 20 lesson in this month (Don't show older than 2 months)
+
+Amount due: Calculate how much the customer needs to pay (Past month + Rolling month lessons)
+
+Investigate the payment using Swedbank or SEB bank, allow users to pay their payment using this method.
+
+Once they pay their amount, update the calendar as paid, so the amount due is updated.
+
+---------------------------------
+
+LessonPlan Database
+
+I want them to see my all resources. Like here (look under lesson plans)
+
+https://eslbrains.com/esl-lesson-plans/a2-pre-intermediate/
+
+---------------------------------
+
+User Database
+
+Book a lesson - https://calendly.com/milda-jasuleviciute/60min
+
+Or sometimes if they have already booked a lesson with me - they should see when we have next lesson coming.
+
+Ideally and in most case, I think, I will be the one assigning them topics and exercises, so after they logged in, they will see: The teacher has assigned you a new lesson and a video to watch. Start getting ready!
+
+History of assigned HW should be also shown
+
+For example: three days left until the lesson. Are you getting ready?
+
+They can choose the topic of the lessons, the lesson plan and I will see what they want to talk about.

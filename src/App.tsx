@@ -13,6 +13,7 @@ import WhyNoriuKalbeti from "./pages/WhyNoriuKalbeti/WhyNoriuKalbeti";
 import BookLesson from "./pages/BookLesson/BookLesson";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import LessonPlans from "./pages/LessonPlans/LessonPlans";
+import LessonFiles from "./pages/LessonPlans/sub-pages/LessonFiles";
 
 function App() {
   const { isAuthenticated, loading } = useAuthContext();
@@ -40,6 +41,7 @@ function App() {
               <Route path="/why-noriu-kalbeti" element={<WhyNoriuKalbeti />} />
               <Route path="/book-lesson" element={<BookLesson />} />
               <Route path="/lesson-plans" element={<LessonPlans />} />
+              <Route path="/lesson-files/:category" element={<LessonFiles />} />
               <Route path="*" element={<PageNotFound />} />
             </>
           ) : (

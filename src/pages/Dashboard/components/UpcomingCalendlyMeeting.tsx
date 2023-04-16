@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import fetchMeetings from "./FetchCalendlyMeetings";
+import GetCalendlyMeetings from "./GetCalendlyMeetings";
 
 interface Meeting {
   uri: string;
@@ -17,7 +17,7 @@ const CalendlyMeetings: React.FC<{
   const [upcomingMeeting, setUpcomingMeeting] = useState<Meeting | null>(null);
 
   useEffect(() => {
-    fetchMeetings(userEmail).then((meetings) => {
+    GetCalendlyMeetings(userEmail).then((meetings) => {
       const upcomingMeetings = meetings.filter((meeting) => {
         const startTime = new Date(meeting.start_time);
         return startTime > new Date();
