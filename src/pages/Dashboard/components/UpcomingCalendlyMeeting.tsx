@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GetCalendlyMeetings from "./GetCalendlyMeetings";
+import "../Dashboard.css";
 
 interface Meeting {
   uri: string;
@@ -30,9 +31,11 @@ const CalendlyMeetings: React.FC<{
   }, [userEmail]);
 
   return (
-    <div>
-      <h1>Upcoming Lesson</h1>
+    <div className="dashboard-card">
+      <h1 className="dashboard-title">Upcoming Lesson</h1>
       <p>
+        {" "}
+        Get ready your next lesson is on:{" "}
         {upcomingMeeting?.start_time
           ? new Date(upcomingMeeting.start_time).toLocaleString()
           : ""}

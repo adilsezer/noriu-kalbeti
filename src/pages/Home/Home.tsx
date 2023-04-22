@@ -1,43 +1,14 @@
-import { child, get, getDatabase, ref } from "firebase/database";
-import { useEffect, useState } from "react";
 import Footer from "../../components/layout/Footer";
 import Navbar from "../../components/layout/NavBar";
 import "./Home.css";
 import contentPicture from "../../assets/images/homepage-image.jpg";
-import { homePageContent } from "../../components/text/ContentTexts";
-
-interface IData {
-  key: string | null;
-  text: string;
-}
+import {
+  homePageContent,
+  homePageContent2,
+  homePageContent3,
+} from "../../components/text/ContentTexts";
 
 export default function Home() {
-  const [dbHomeContents, setDbHomeContents] = useState<IData[]>([]);
-
-  const dbRef = ref(getDatabase());
-  useEffect(() => {
-    get(child(dbRef, `home-page`))
-      .then((snapshot) => {
-        let result: IData[] = [];
-        snapshot.forEach((child) => {
-          result.push({
-            key: child.key,
-            text: child.val(),
-          });
-        });
-        setDbHomeContents(result);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [dbRef]);
-
-  const dbContentItems = dbHomeContents.map((content, index) => (
-    <p key={index} className="home-sub-text">
-      {content.text}
-    </p>
-  ));
-
   return (
     <div>
       <Navbar></Navbar>
@@ -49,7 +20,8 @@ export default function Home() {
         />
         <p className="main-content-text">{homePageContent}</p>
       </div>
-      {dbContentItems}
+      <div className="home-sub-text">{homePageContent2}</div>
+      <div className="home-sub-text">{homePageContent3}</div>
       <Footer></Footer>
     </div>
   );

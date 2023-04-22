@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GetCalendlyMeetings from "./GetCalendlyMeetings";
+import "../Dashboard.css";
 
 interface Meeting {
   uri: string;
@@ -37,9 +38,9 @@ const ListCalendlyMeetings: React.FC<{
 
   const listMeetingsForMonth = (meetings: Meeting[]) => {
     return meetings.map((meeting, index) => (
-      <li key={index}>
+      <div key={index}>
         {new Date(meeting.start_time).toLocaleString()} - {meeting.name}
-      </li>
+      </div>
     ));
   };
 
@@ -55,35 +56,55 @@ const ListCalendlyMeetings: React.FC<{
   };
 
   return (
-    <div>
-      <h1>Lesson History</h1>
-      <p>
-        You had {previousMonthMeetings.length} lessons in{" "}
-        {getMonthName(previousMonth)}
-      </p>
-      <p>
-        Amount Due in {getMonthName(previousMonth)}: €
-        {23 * previousMonthMeetings.length}
-      </p>
-      <ul>{listMeetingsForMonth(previousMonthMeetings)}</ul>
-      <p>
-        <p>
-          You had {currentMonthMeetings.length} lessons in{" "}
-          {getMonthName(currentMonth)}
+    <div className="dashboard-card">
+      <h1 className="dashboard-title">Lesson History</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Lessons</th>
+            <th>Amount Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{getMonthName(previousMonth)}</td>
+            <td>{listMeetingsForMonth(previousMonthMeetings)}</td>
+            <td>€{23 * previousMonthMeetings.length}</td>
+          </tr>
+          <tr>
+            <td>{getMonthName(currentMonth)}</td>
+            <td>{listMeetingsForMonth(currentMonthMeetings)}</td>
+            <td>€{23 * currentMonthMeetings.length}</td>
+          </tr>
+          <tr>
+            <td>{getMonthName(nextMonth)}</td>
+            <td>{listMeetingsForMonth(nextMonthMeetings)}</td>
+            <td>€{23 * nextMonthMeetings.length}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="payment-info">
+        <p className="payment-info-label">
+          Please make all payments to the account below
         </p>
-        <p>
-          Amount Due in {getMonthName(currentMonth)}: €
-          {23 * currentMonthMeetings.length}
-        </p>
-        <ul>{listMeetingsForMonth(currentMonthMeetings)}</ul>
-        <p>
-          You had {nextMonthMeetings.length} lessons in{" "}
-          {getMonthName(nextMonth)}
-        </p>
-        Amount Due in {getMonthName(nextMonth)}: €
-        {23 * nextMonthMeetings.length}
-      </p>
-      <ul>{listMeetingsForMonth(nextMonthMeetings)}</ul>
+        <ul className="payment-info-list">
+          <li>
+            <span className="payment-info-label">Bank Name:</span> Bank of
+            Ireland
+          </li>
+          <li>
+            <span className="payment-info-label">Account Name:</span> John Smith
+          </li>
+          <li>
+            <span className="payment-info-label">Sort Code:</span> 12-34-56
+          </li>
+          <li>
+            <span className="payment-info-label">IBAN:</span> IE 12 1234 1234
+            1234 1234 1234
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

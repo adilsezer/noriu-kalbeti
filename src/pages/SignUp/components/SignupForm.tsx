@@ -1,42 +1,48 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuthContext } from "../../../contexts/AuthContext";
-import {
-  AuthError,
-  parseFirebaseErrorMessage,
-} from "../../../configs/FirebaseConfig";
-import { displayToast } from "../../../utils/toast";
 import FormContainer from "../../../components/ui/FormContainer";
 import Input from "../../../components/ui/Input";
 import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
+import emailjs from "@emailjs/browser";
+import { Link } from "react-router-dom";
+import { displayToast } from "../../../utils/toast";
 
 const SignupForm: React.FC = () => {
-  const { signup } = useAuthContext();
+  const form = useRef<HTMLFormElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(false);
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const passwordConfirmationRef = useRef<HTMLInputElement>(null);
-
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-
-    if (passwordRef.current?.value !== passwordConfirmationRef.current?.value) {
-      displayToast("Password must match", { type: "error" });
-      return;
-    }
-
     setLoading(true);
+
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string;
+    const userId = process.env.REACT_APP_EMAILJS_USER_ID as string;
+
     try {
-      if (emailRef.current?.value && passwordRef.current?.value) {
-        await signup(emailRef.current?.value, passwordRef.current?.value);
+      if (!emailRef.current?.value)
+        displayToast("Email is required to sign up", {
+          type: "error",
+        });
+      else {
+        const response = await emailjs.sendForm(
+          serviceId,
+          templateId,
+          form.current as HTMLFormElement,
+          userId
+        );
+        console.log(response);
+        displayToast(
+          "New user request has been sent. Please wait until it is verified",
+          {
+            type: "success",
+          }
+        );
       }
-    } catch (e) {
-      displayToast(parseFirebaseErrorMessage(e as AuthError), {
-        type: "error",
-      });
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -44,9 +50,9 @@ const SignupForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <form onSubmit={onSubmit}>
+      <form ref={form} onSubmit={onSubmit}>
         <h1>Signup</h1>
-        <p>Please enter your email and password to sign up</p>
+        <p>Your account will be verified by the admin in 24h</p>
 
         <div className="input-grid">
           <Input
@@ -55,23 +61,6 @@ const SignupForm: React.FC = () => {
             type="email"
             ref={emailRef}
             placeholder="Email / Username"
-          />
-        </div>
-        <div className="input-grid">
-          <Input
-            id="password"
-            ref={passwordRef}
-            type="password"
-            placeholder="Password"
-          />
-        </div>
-        <div className="input-grid">
-          <Input
-            id="conf-password"
-            name="conf-password"
-            ref={passwordConfirmationRef}
-            type="password"
-            placeholder="Confirm Password"
           />
         </div>
         <Button type="submit" disabled={loading} className="button-component">

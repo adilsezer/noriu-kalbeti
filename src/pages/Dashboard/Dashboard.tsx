@@ -12,12 +12,14 @@ export default function Dashboard() {
   return (
     <div>
       <NavBar></NavBar>
-      <p className="welcome-message">{`Welcome, ${
+      <p className="dashboard-title">{`Welcome, ${
         user?.name || user?.email
       }`}</p>
-      <ListUserLessonData></ListUserLessonData>
-      <UpcomingCalendlyMeeting userEmail={user?.email ? user.email : ""} />
-      <ListCalendlyMeetings userEmail={user?.email ? user.email : ""} />
+      <div className="dashboard-container">
+        <ListUserLessonData></ListUserLessonData>
+        <UpcomingCalendlyMeeting userEmail={user?.email ? user.email : ""} />
+        <ListCalendlyMeetings userEmail={user?.email ? user.email : ""} />
+      </div>
       <Footer></Footer>
     </div>
   );
