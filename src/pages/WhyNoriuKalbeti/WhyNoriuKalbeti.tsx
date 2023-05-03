@@ -1,12 +1,12 @@
 import Footer from "../../components/layout/Footer";
-import Navbar from "../../components/layout/NavBar";
+import TopNavBar from "../../components/layout/TopNavBar";
 import { whyNoriuKalbetiContent } from "../../components/text/ContentTexts";
 import contentPicture from "../../assets/images/homepage-image.jpg";
 
 export default function WhyNoriuKalbeti() {
   return (
     <div>
-      <Navbar></Navbar>
+      <TopNavBar></TopNavBar>
       <div className="content-container">
         <img
           src={contentPicture}

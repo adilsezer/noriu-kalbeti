@@ -7,10 +7,6 @@ Separate meeting and amount info into two different month
 
 Feedback and evaluation - Allow users to provide feedback and evaluations on the courses, teachers, and overall learning experience.
 
-Create a Real-time Chat App for students with ReactJS and Firebase. Also for announcements
-
-Language assessment - Allow users to take language proficiency assessments to evaluate their skills and track their progress.
-
 The word of the day
 
 ---------------------------------

@@ -8,7 +8,7 @@ interface Meeting {
   updated_at: string;
 }
 
-export const GetCalendlyMeetings = async (
+export const getCalendlyMeetings = async (
   userEmail: string
 ): Promise<Meeting[]> => {
   const url = `https://api.calendly.com/scheduled_events?organization=${process.env.REACT_APP_CALENDLY_ORGANIZATION}&invitee_email=${userEmail}&status=active`;
@@ -26,4 +26,4 @@ export const GetCalendlyMeetings = async (
   return data.collection as Meeting[];
 };
 
-export default GetCalendlyMeetings;
+export default getCalendlyMeetings;

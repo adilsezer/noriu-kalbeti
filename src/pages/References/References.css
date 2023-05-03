@@ -1,0 +1,34 @@
+.reference-card {
+  width: 30%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #232323;
+  margin-bottom: 30px;
+}
+
+.reference-card img {
+  border-radius: 5px 5px 0 0;
+  /* Center img */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
+
+.reference-card h2 {
+  background-color: #a9201b;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.reference-card p {
+  padding: 10px;
+  text-align: justify;
+}
+
+.reference-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

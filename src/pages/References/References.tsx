@@ -1,12 +1,12 @@
 import Footer from "../../components/layout/Footer";
 import TopNavBar from "../../components/layout/TopNavBar";
-import ForgotPasswordForm from "./components/ForgotPasswordForm";
+import ReferenceCards from "./components/ReferenceCards";
 
-export default function ForgotPassword() {
+export default function References() {
   return (
     <div>
       <TopNavBar />
-      <ForgotPasswordForm />
+      <ReferenceCards />
       <Footer />
     </div>
   );

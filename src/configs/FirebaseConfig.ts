@@ -28,7 +28,6 @@ export const parseFirebaseErrorMessage = (error: AuthError) => {
   const message = error.message;
   let parsedMessage = "An error happened. Please try again";
 
-  console.log({ message });
   for (var k of Object.keys(FIREBASE_ERROR_MAP)) {
     if (message.includes(k)) {
       parsedMessage = FIREBASE_ERROR_MAP[k as keyof typeof FIREBASE_ERROR_MAP];

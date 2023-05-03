@@ -1,12 +1,12 @@
 import Footer from "../../components/layout/Footer";
 import TopNavBar from "../../components/layout/TopNavBar";
-import ForgotPasswordForm from "./components/ForgotPasswordForm";
+import ContactForm from "./components/ContactForm";
 
-export default function ForgotPassword() {
+export default function Contact() {
   return (
     <div>
       <TopNavBar />
-      <ForgotPasswordForm />
+      <ContactForm />
       <Footer />
     </div>
   );

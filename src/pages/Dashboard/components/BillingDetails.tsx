@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import GetCalendlyMeetings from "./GetCalendlyMeetings";
+import getCalendlyMeetings from "./GetCalendlyMeetings";
 import "../Dashboard.css";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 interface Meeting {
   uri: string;
@@ -12,13 +13,14 @@ interface Meeting {
   updated_at: string;
 }
 
-const ListCalendlyMeetings: React.FC<{
-  userEmail: string;
-}> = ({ userEmail }) => {
+export default function BillingDetails() {
+  const { user } = useAuthContext();
+  const userEmail = user?.email || "";
+
   const [meetings, setMeetings] = useState<Meeting[]>([]);
 
   useEffect(() => {
-    GetCalendlyMeetings(userEmail).then((meetings) => setMeetings(meetings));
+    getCalendlyMeetings(userEmail).then((meetings) => setMeetings(meetings));
   }, [userEmail]);
 
   const currentMonthMeetings = meetings.filter((meeting) => {
@@ -56,8 +58,8 @@ const ListCalendlyMeetings: React.FC<{
   };
 
   return (
-    <div className="dashboard-card">
-      <h1 className="dashboard-title">Lesson History</h1>
+    <div>
+      <h1 className="dashboard-text">Lesson History</h1>
       <table>
         <thead>
           <tr>
@@ -85,28 +87,14 @@ const ListCalendlyMeetings: React.FC<{
         </tbody>
       </table>
       <div className="payment-info">
-        <p className="payment-info-label">
+        <h3 className="dashboard-text">
           Please make all payments to the account below
-        </p>
-        <ul className="payment-info-list">
-          <li>
-            <span className="payment-info-label">Bank Name:</span> Bank of
-            Ireland
-          </li>
-          <li>
-            <span className="payment-info-label">Account Name:</span> John Smith
-          </li>
-          <li>
-            <span className="payment-info-label">Sort Code:</span> 12-34-56
-          </li>
-          <li>
-            <span className="payment-info-label">IBAN:</span> IE 12 1234 1234
-            1234 1234 1234
-          </li>
-        </ul>
+        </h3>
+        <p>Bank Name: Bank of Ireland</p>
+        <p>Account Name: John Smith</p>
+        <p>Sort Code: 12-34-56</p>
+        <p>IBAN: IE 12 1234 1234 1234 1234 1234</p>
       </div>
     </div>
   );
-};
-
-export default ListCalendlyMeetings;
+}

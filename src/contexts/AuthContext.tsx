@@ -19,7 +19,7 @@ interface IUser {
   uid: string;
   name?: string | null;
   email: string | null;
-  photoUrl?: string | null;
+  isAdmin?: boolean;
 }
 
 type FirebaseAuthLoginAction = (
@@ -41,10 +41,7 @@ interface IAuthContextProps {
   login: FirebaseAuthLoginAction;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  updateProfile: (
-    displayName: string | null | undefined,
-    photoURL: string | null | undefined
-  ) => Promise<void>;
+  updateProfile: (displayName: string | null | undefined) => Promise<void>;
   updateEmail: (newEmail: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
 }
@@ -80,13 +77,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return auth.sendPasswordResetEmail(email);
   };
 
-  const updateProfile = async (
-    displayName: string | null | undefined,
-    photoURL: string | null | undefined
-  ) => {
+  const updateProfile = async (displayName: string | null | undefined) => {
     if (!auth.currentUser || !user) return Promise.resolve();
-    await auth.currentUser.updateProfile({ displayName, photoURL });
-    setUser({ ...user, name: displayName, photoUrl: photoURL });
+    await auth.currentUser.updateProfile({ displayName });
+    setUser({ ...user, name: displayName });
   };
 
   const updateEmail = async (newEmail: string) => {
@@ -100,17 +94,18 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return auth.currentUser.updatePassword(newPassword);
   };
 
-  const updateUser = useCallback((user: FirebaseUser | null) => {
-    setUser(
-      user
-        ? {
-            uid: user.uid,
-            name: user.displayName,
-            email: user.email,
-            photoUrl: user.photoURL,
-          }
-        : null
-    );
+  const updateUser = useCallback(async (user: FirebaseUser | null) => {
+    if (user) {
+      const tokenResult = await user.getIdTokenResult();
+      setUser({
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+        isAdmin: tokenResult.claims.admin, // Check if the user is admin
+      });
+    } else {
+      setUser(null);
+    }
   }, []);
 
   useEffect(() => {

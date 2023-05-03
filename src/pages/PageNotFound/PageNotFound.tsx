@@ -1,5 +1,5 @@
 import Footer from "../../components/layout/Footer";
-import Navbar from "../../components/layout/NavBar";
+import TopNavBar from "../../components/layout/TopNavBar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PageNotFound.css";
@@ -17,7 +17,7 @@ export default function PageNotFound() {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <TopNavBar></TopNavBar>
       <h1 className="center-text">Page Not Found</h1>
       <p className="center-text">
         You will be redirected to the home page in 5 seconds

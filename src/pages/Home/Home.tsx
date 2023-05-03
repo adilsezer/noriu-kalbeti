@@ -1,5 +1,5 @@
 import Footer from "../../components/layout/Footer";
-import Navbar from "../../components/layout/NavBar";
+import TopNavBar from "../../components/layout/TopNavBar";
 import "./Home.css";
 import contentPicture from "../../assets/images/homepage-image.jpg";
 import {
@@ -11,7 +11,7 @@ import {
 export default function Home() {
   return (
     <div>
-      <Navbar></Navbar>
+      <TopNavBar></TopNavBar>
       <div className="content-container">
         <img
           src={contentPicture}

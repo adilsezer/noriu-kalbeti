@@ -18,7 +18,8 @@ const SignupForm: React.FC = () => {
     setLoading(true);
 
     const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
-    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string;
+    const templateId = process.env
+      .REACT_APP_EMAILJS_SIGNUP_TEMPLATE_ID as string;
     const userId = process.env.REACT_APP_EMAILJS_USER_ID as string;
 
     try {

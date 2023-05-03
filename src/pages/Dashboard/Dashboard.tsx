@@ -1,24 +1,64 @@
-import { useAuthContext } from "../../contexts/AuthContext";
-import NavBar from "../../components/layout/NavBar";
+import TopNavBar from "../../components/layout/TopNavBar";
 import "./Dashboard.css";
 import Footer from "../../components/layout/Footer";
-import ListCalendlyMeetings from "./components/ListCalendlyMeetings";
-import UpcomingCalendlyMeeting from "./components/UpcomingCalendlyMeeting";
-import ListUserLessonData from "./components/ListUserLessonData";
+import SideBar from "../../components/layout/SideBar";
+import { useState } from "react";
+import NextLessonContent from "./components/NextLessonContent";
+import AccountDetails from "./components/AccountDetails";
+import BillingDetails from "./components/BillingDetails";
+import LessonPlans from "./components/LessonPlans";
+import InlineComponent from "./components/BookLesson";
+import FAQ from "./components/FAQ";
+import LeaveFeedback from "./components/LeaveFeedback";
+import Announcements from "./components/Announcements";
+import DashboardWelcome from "./components/DashboardWelcome";
 
 export default function Dashboard() {
-  const { user } = useAuthContext();
+  const [sideContentToRender, setSideContentToRender] = useState<JSX.Element>();
+
+  if (!sideContentToRender) {
+    setSideContentToRender(<DashboardWelcome />);
+  }
+
+  const handleSideBarClick = (item: string) => {
+    switch (item) {
+      case "Account Details":
+        setSideContentToRender(<AccountDetails />);
+        break;
+      case "Next Lesson Details":
+        setSideContentToRender(<NextLessonContent />);
+        break;
+      case "Billing Details":
+        setSideContentToRender(<BillingDetails />);
+        break;
+      case "Lesson Plan":
+        setSideContentToRender(<LessonPlans />);
+        break;
+      case "Book a Lesson":
+        setSideContentToRender(<InlineComponent />);
+        break;
+      case "FAQ":
+        setSideContentToRender(<FAQ />);
+        break;
+      case "Leave a Feedback":
+        setSideContentToRender(<LeaveFeedback />);
+        break;
+      default:
+        setSideContentToRender(<DashboardWelcome />);
+    }
+  };
 
   return (
     <div>
-      <NavBar></NavBar>
-      <p className="dashboard-title">{`Welcome, ${
-        user?.name || user?.email
-      }`}</p>
+      <TopNavBar></TopNavBar>
       <div className="dashboard-container">
-        <ListUserLessonData></ListUserLessonData>
-        <UpcomingCalendlyMeeting userEmail={user?.email ? user.email : ""} />
-        <ListCalendlyMeetings userEmail={user?.email ? user.email : ""} />
+        <div className="dashboard-sidebar">
+          <SideBar onItemSelect={handleSideBarClick}></SideBar>
+        </div>
+        <div className="dashboard-content">{sideContentToRender}</div>
+        <div className="dashboard-announcements">
+          <Announcements />
+        </div>
       </div>
       <Footer></Footer>
     </div>

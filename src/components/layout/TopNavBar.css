@@ -21,16 +21,16 @@
   text-align: center;
 }
 
-.navbar a {
+.top-navbar a {
   text-decoration: none;
   color: #222341;
 }
 
-.navbar a:hover {
+.top-navbar a:hover {
   color: #c6304b;
 }
 
-.navbar li {
+.top-navbar li {
   list-style: none;
   display: inline-block;
   padding: 15px 17px;
@@ -39,4 +39,8 @@
 .app-logo {
   width: 75%;
   vertical-align: middle;
+}
+
+.top-navbar a:active {
+  color: #c6304b;
 }

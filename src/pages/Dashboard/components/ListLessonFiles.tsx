@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import {
   ref,
   list,
@@ -8,7 +7,7 @@ import {
   updateMetadata,
 } from "firebase/storage";
 import { storage } from "../../../configs/FirebaseConfig";
-import "../LessonPlans.css";
+import "../Dashboard.css";
 import { ClipLoader } from "react-spinners";
 import fileIcon from "../../../assets/images/file-icon.png";
 import pdfIcon from "../../../assets/images/pdf-icon.png";
@@ -22,11 +21,9 @@ interface LessonFile {
   description: string;
 }
 
-export default function ListLessonFiles() {
+export default function ListLessonFiles({ category }: { category: string }) {
   const [lessonPlans, setLessonPlans] = useState<LessonFile[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const { category } = useParams<{ category: string }>();
 
   const createTitleText = (str: string): string => {
     if (!str) return "No Lessons Found";
@@ -73,18 +70,14 @@ export default function ListLessonFiles() {
 
           updateMetadata(itemRef, metadata2)
             .then((metadata: any) => {})
-            .catch((error: any) => {
-              console.log(error.message);
-            });
+            .catch((error: any) => {});
         }
         const orderedItems = storageItems.sort(
           (a, b) => b.date.getTime() - a.date.getTime()
         );
         setLessonPlans(orderedItems);
       })
-      .catch((error) => {
-        console.log(error);
-      })
+      .catch((error) => {})
       .finally(() => {
         setLoading(false);
       });
@@ -104,7 +97,7 @@ export default function ListLessonFiles() {
       {lessonPlans.length > 0 && (
         <div className="lesson-container">
           {lessonPlans.map((lessonPlan) => (
-            <div className="lesson-card" key={lessonPlan.name}>
+            <div className="file-card" key={lessonPlan.name}>
               <a
                 href={lessonPlan.url}
                 target="_blank"
