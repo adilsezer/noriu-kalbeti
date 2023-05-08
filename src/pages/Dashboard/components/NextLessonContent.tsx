@@ -4,11 +4,12 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import "../Dashboard.css";
 import getUpcomingLesson from "./GetUpcomingLesson";
 
-type usersDBType = {
-  nextLessonDate: string;
-  lessonTopic: string;
-  assignedHW: string;
+type usersDBEntry = {
+  key: string;
+  value: any;
 };
+
+type usersDBType = usersDBEntry[];
 
 interface Meeting {
   uri: string;
@@ -23,7 +24,7 @@ interface Meeting {
 export default function NextLessonContent() {
   const { user } = useAuthContext();
   const userEmail = user?.email || "";
-  const [usersDBEntries, setUsersDBEntries] = useState<usersDBType[]>([]);
+  const [usersDBEntries, setUsersDBEntries] = useState<usersDBType>([]);
   const [upcomingMeeting, setUpcomingMeeting] = useState<Meeting>();
 
   const dbRef = ref(getDatabase());
@@ -31,7 +32,17 @@ export default function NextLessonContent() {
     get(child(dbRef, `users/${user?.uid}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          setUsersDBEntries(snapshot.val());
+          const usersDBData = snapshot.val();
+          const usersDBEntriesArray = Object.entries(usersDBData).sort(
+            (a, b) => {
+              return b[0].localeCompare(a[0]);
+            }
+          );
+
+          const sortedUsersDBEntries: usersDBType = usersDBEntriesArray.map(
+            ([key, value]) => ({ key, value })
+          );
+          setUsersDBEntries(sortedUsersDBEntries);
         } else {
         }
       })
@@ -62,12 +73,15 @@ export default function NextLessonContent() {
               : "No Lesson"}
           </td>
         </tr>
-        {Object.entries(usersDBEntries).map((userDBEntry, index) => (
-          <tr key={index}>
-            <th>{formatTitle(userDBEntry[0])}</th>
-            <td>{userDBEntry[1].toString()}</td>
-          </tr>
-        ))}
+        {usersDBEntries.map(
+          (userDBEntry, index) =>
+            userDBEntry.key !== "userName" && (
+              <tr key={index}>
+                <th>{formatTitle(userDBEntry.key)}</th>
+                <td>{userDBEntry.value.toString()}</td>
+              </tr>
+            )
+        )}
       </tbody>
     </table>
   );

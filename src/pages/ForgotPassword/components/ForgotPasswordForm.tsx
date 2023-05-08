@@ -45,7 +45,7 @@ const ForgotPasswordForm: React.FC = () => {
         <h1>Password Recover</h1>
         <p>Please enter your email to recover your password</p>
 
-        <div className="input-grid">
+        <div>
           <Input
             id="email"
             name="email"

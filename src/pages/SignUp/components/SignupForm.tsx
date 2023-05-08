@@ -55,7 +55,7 @@ const SignupForm: React.FC = () => {
         <h1>Signup</h1>
         <p>Your account will be verified by the admin in 24h</p>
 
-        <div className="input-grid">
+        <div>
           <Input
             id="email"
             name="email"

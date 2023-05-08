@@ -56,7 +56,7 @@ const Login: React.FC = () => {
       <form onSubmit={onSubmit}>
         <h1>Login</h1>
         <p>Please enter your credentials to login</p>
-        <div className="input-grid">
+        <div>
           <Input
             id="email"
             ref={emailRef}
@@ -64,7 +64,7 @@ const Login: React.FC = () => {
             placeholder="Email / Username"
           />
         </div>
-        <div className="input-grid">
+        <div>
           <Input
             id="password"
             ref={passwordRef}

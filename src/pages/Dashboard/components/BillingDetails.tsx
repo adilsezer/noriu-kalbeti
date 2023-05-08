@@ -84,6 +84,19 @@ export default function BillingDetails() {
             <td>{listMeetingsForMonth(nextMonthMeetings)}</td>
             <td>€{23 * nextMonthMeetings.length}</td>
           </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <strong>
+                Total: €
+                {23 *
+                  (previousMonthMeetings.length +
+                    currentMonthMeetings.length +
+                    nextMonthMeetings.length)}
+              </strong>
+            </td>
+          </tr>
         </tbody>
       </table>
       <div className="payment-info">

@@ -1,34 +1,50 @@
-import React, { useState } from "react";
-
-import { useAuthContext } from "../../contexts/AuthContext";
-import { getDatabase, ref, set } from "firebase/database";
+import { useState } from "react";
 import TopNavBar from "../../components/layout/TopNavBar";
 import Footer from "../../components/layout/Footer";
+import AdminTaskList from "./components/AdminTaskList";
+import SignUpUser from "./components/SignUpUser";
+import SetNextLessonDetails from "./components/SetNextLessonDetails";
+import AddAnAnnouncement from "./components/AddAnAnnouncement";
+import UploadALessonPlanFile from "./components/UploadALessonPlanFile";
+import AdminWelcome from "./components/AdminWelcome";
 
 export default function AdminPage() {
-  const { user } = useAuthContext();
-  const [activeHW, setactiveHW] = useState("");
+  const [adminContentToRender, setAdminContentToRender] =
+    useState<JSX.Element>();
 
-  const writeUserData = () => {
-    const db = getDatabase();
-    set(ref(db, "users/" + user?.uid), {
-      role: "user",
-      userName: user?.email,
-      activeHW: activeHW,
-      archievedHW: "",
-    });
-  };
+  if (!adminContentToRender) {
+    setAdminContentToRender(<AdminWelcome />);
+  }
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setactiveHW(e.target.value);
+  const handleAdminTaskListClick = (item: string) => {
+    switch (item) {
+      case "Signup User":
+        setAdminContentToRender(<SignUpUser />);
+        break;
+      case "Set Next Lesson Details":
+        setAdminContentToRender(<SetNextLessonDetails />);
+        break;
+      case "Add an Announcement":
+        setAdminContentToRender(<AddAnAnnouncement />);
+        break;
+      case "Upload a Lesson Plan File":
+        setAdminContentToRender(<UploadALessonPlanFile />);
+        break;
+      default:
+        setAdminContentToRender(<AdminWelcome />);
+    }
   };
 
   return (
     <div>
       <TopNavBar />
-      <h1>Admin Page</h1>
-      <input type="text" onChange={handleOnChange} value={activeHW} />
-      <button onClick={writeUserData}>Add Todo</button>
+      <h1 className="center-text">Admin Page</h1>
+      <div className="admin-container">
+        <div className="admin-left-list">
+          <AdminTaskList onItemSelect={handleAdminTaskListClick} />
+        </div>
+        <div className="admin-content">{adminContentToRender}</div>
+      </div>
       <Footer />
     </div>
   );

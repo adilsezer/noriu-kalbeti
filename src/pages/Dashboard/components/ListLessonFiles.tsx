@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  ref,
-  list,
-  getDownloadURL,
-  getMetadata,
-  updateMetadata,
-} from "firebase/storage";
+import { ref, list, getDownloadURL, getMetadata } from "firebase/storage";
 import { storage } from "../../../configs/FirebaseConfig";
 import "../Dashboard.css";
 import { ClipLoader } from "react-spinners";
@@ -25,6 +19,11 @@ export default function ListLessonFiles({ category }: { category: string }) {
   const [lessonPlans, setLessonPlans] = useState<LessonFile[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Helper function to truncate text after specific character length
+  const truncateText = (text: string, maxLength: number): string => {
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  };
+
   const createTitleText = (str: string): string => {
     if (!str) return "No Lessons Found";
     str = "Lesson Files For " + str.replace(/-/g, " ");
@@ -38,14 +37,6 @@ export default function ListLessonFiles({ category }: { category: string }) {
 
   useEffect(() => {
     const listRef = ref(storage, "lesson-plans/" + category);
-
-    const metadata2 = {
-      contentType: "application/pdf",
-      customMetadata: {
-        title: "Yosemite, CA, USA",
-        description: "A lesson plan for Yosemite, CA, USA",
-      },
-    };
 
     list(listRef)
       .then(async (res) => {
@@ -67,10 +58,6 @@ export default function ListLessonFiles({ category }: { category: string }) {
             description: description ?? "",
           };
           storageItems.push(lessonPlan);
-
-          updateMetadata(itemRef, metadata2)
-            .then((metadata: any) => {})
-            .catch((error: any) => {});
         }
         const orderedItems = storageItems.sort(
           (a, b) => b.date.getTime() - a.date.getTime()
@@ -109,11 +96,13 @@ export default function ListLessonFiles({ category }: { category: string }) {
                   className="lesson-card-icon"
                 />
                 {lessonPlan.title && (
-                  <p className="lesson-card-title">{lessonPlan.title}</p>
+                  <p className="lesson-card-title">
+                    {truncateText(lessonPlan.title, 130)}
+                  </p>
                 )}
                 {lessonPlan.description && (
                   <p className="lesson-card-description">
-                    {lessonPlan.description}
+                    {truncateText(lessonPlan.description, 130)}
                   </p>
                 )}
               </a>
