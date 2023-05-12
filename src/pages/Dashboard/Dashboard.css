@@ -108,3 +108,28 @@ th {
   width: 250px;
   height: 200px;
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.feedback-textarea {
+  resize: none;
+  padding: 10px;
+  width: 75%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

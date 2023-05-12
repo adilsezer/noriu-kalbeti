@@ -10,7 +10,7 @@ import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 import FormContainer from "../../../components/ui/FormContainer";
 
-const AccountDetails: React.FC = () => {
+export default function AccountDetails() {
   const { user, updateProfile, updatePassword } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
@@ -63,6 +63,9 @@ const AccountDetails: React.FC = () => {
       <FormContainer>
         <form onSubmit={onSubmit}>
           <div>
+            <label htmlFor="email" className="visually-hidden">
+              Email
+            </label>
             <Input
               id="email"
               type="email"
@@ -71,6 +74,9 @@ const AccountDetails: React.FC = () => {
             />
           </div>
           <div>
+            <label htmlFor="name" className="visually-hidden">
+              Display Name
+            </label>
             <Input
               id="name"
               ref={nameRef}
@@ -79,6 +85,9 @@ const AccountDetails: React.FC = () => {
             />
           </div>
           <div>
+            <label htmlFor="password" className="visually-hidden">
+              Password
+            </label>
             <Input
               id="password"
               ref={passwordRef}
@@ -87,6 +96,9 @@ const AccountDetails: React.FC = () => {
             />
           </div>
           <div>
+            <label htmlFor="password-conf" className="visually-hidden">
+              Confirm Password
+            </label>
             <Input
               id="password-conf"
               ref={passwordConfirmationRef}
@@ -102,6 +114,4 @@ const AccountDetails: React.FC = () => {
       </FormContainer>
     </div>
   );
-};
-
-export default AccountDetails;
+}

@@ -1,6 +1,7 @@
 import { InlineWidget } from "react-calendly";
+import React from "react";
 
-const InlineComponent = () => {
+export default function BookLesson() {
   return (
     <div>
       <h1 className="dashboard-text">
@@ -19,6 +20,4 @@ const InlineComponent = () => {
       />
     </div>
   );
-};
-
-export default InlineComponent;
+}

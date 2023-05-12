@@ -1,12 +1,15 @@
 import { useRef, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
-import emailjs from "@emailjs/browser";
 import { displayToast } from "../../../utils/toast";
+import "../Dashboard.css";
+import { useAuthContext } from "../../../contexts/AuthContext";
+import sendEmail from "../../../utils/emailSender";
 
-const LeaveFeedback: React.FC = () => {
+export default function LeaveFeedback() {
   const form = useRef<HTMLFormElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const { user } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
 
@@ -14,36 +17,23 @@ const LeaveFeedback: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
-    const templateId = process.env
-      .REACT_APP_EMAILJS_MESSAGE_TEMPLATE_ID as string;
-    const userId = process.env.REACT_APP_EMAILJS_USER_ID as string;
-
     try {
-      if (!messageRef.current?.value)
-        displayToast("Feedback is required to send the email", {
-          type: "error",
-        });
-      else {
-        const response = await emailjs.sendForm(
-          serviceId,
-          templateId,
-          form.current as HTMLFormElement,
-          userId
-        );
-        console.log(response);
-        displayToast(
-          "The feedback has been sent. Your teacher will read it as soon as possible",
-          {
-            type: "success",
-          }
-        );
-      }
+      await sendEmail({
+        message: messageRef.current?.value || "",
+        userEmail: user?.email || "",
+      });
     } catch (error) {
-      console.error(error);
+      catchError(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const catchError = (error: any) => {
+    console.error(error);
+    displayToast("An error occurred while sending the feedback", {
+      type: "error",
+    });
   };
 
   return (
@@ -58,19 +48,7 @@ const LeaveFeedback: React.FC = () => {
           rows={15}
           ref={messageRef}
           placeholder="Feedback text here..."
-          style={{
-            resize: "none",
-            padding: "10px",
-            width: "75%",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            outline: "none",
-            fontFamily: "inherit",
-            fontSize: "inherit",
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
+          className="feedback-textarea"
         />
         <div className="dashboard-text">
           <Button type="submit" disabled={loading} className="button-component">
@@ -80,6 +58,4 @@ const LeaveFeedback: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default LeaveFeedback;
+}

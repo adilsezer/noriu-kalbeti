@@ -17,7 +17,7 @@ export default function PageNotFound() {
 
   return (
     <div>
-      <TopNavBar></TopNavBar>
+      <TopNavBar />
       <h1 className="center-text">Page Not Found</h1>
       <p className="center-text">
         You will be redirected to the home page in 5 seconds
@@ -25,7 +25,7 @@ export default function PageNotFound() {
       <p className="center-text">
         If you are not redirected, click <a href="/">here</a>.
       </p>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

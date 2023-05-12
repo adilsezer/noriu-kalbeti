@@ -15,10 +15,6 @@ History of lesson dates: You had 20 lesson in this month (Don't show older than 
 
 Amount due: Calculate how much the customer needs to pay (Past month + Rolling month lessons)
 
-Investigate the payment using SwedBank or SEB bank, allow users to pay their payment using this method.
-
-Once they pay their amount, update the calendar as paid, so the amount due is updated.
-
 ---------------------------------
 
 LessonPlan Database

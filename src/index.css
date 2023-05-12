@@ -1,19 +1,31 @@
+/* Import fonts */
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto:wght@400;700&display=swap");
 
+/* Define CSS variables */
+:root {
+  --primary-color: #232323;
+  --secondary-color: #434343;
+  --main-font: "Lato", sans-serif;
+}
+
+/* Set global styles for html and body elements */
 html,
 body {
-  font-family: "Lato", sans-serif;
-  color: #232323;
+  font-family: var(--main-font);
+  color: var(--primary-color);
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
+/* Set global styles for headings, paragraphs, and strong elements */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  color: #434343;
+h6,
+p,
+strong {
+  color: var(--secondary-color);
 }

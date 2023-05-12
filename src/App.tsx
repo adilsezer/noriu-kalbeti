@@ -1,7 +1,5 @@
 import { ToastContainer } from "react-toastify";
 import { Routes, Route } from "react-router-dom";
-import ClipLoader from "react-spinners/ClipLoader";
-
 import { useAuthContext } from "./contexts/AuthContext";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
@@ -13,21 +11,20 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import References from "./pages/References/References";
 import Contact from "./pages/Contact/Contact";
 import Admin from "./pages/Admin/Admin";
+import Loader from "./components/ui/Loader";
 
-function App() {
+export default function App() {
   const { isAuthenticated, loading, user } = useAuthContext();
 
+  // Show loader while authentication is loading
   if (loading) {
-    return (
-      <div>
-        <ClipLoader size={50} />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
     <>
       <div>
+        {/* Define routes for the application */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/why-noriu-kalbeti" element={<WhyNoriuKalbeti />} />
@@ -61,5 +58,3 @@ function App() {
     </>
   );
 }
-
-export default App;

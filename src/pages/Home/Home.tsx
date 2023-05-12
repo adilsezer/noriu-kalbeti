@@ -11,7 +11,7 @@ import {
 export default function Home() {
   return (
     <div>
-      <TopNavBar></TopNavBar>
+      <TopNavBar />
       <div className="content-container">
         <img
           src={contentPicture}
@@ -22,7 +22,7 @@ export default function Home() {
       </div>
       <div className="home-sub-text">{homePageContent2}</div>
       <div className="home-sub-text">{homePageContent3}</div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

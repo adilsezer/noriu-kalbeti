@@ -1,3 +1,4 @@
+import React from "react";
 import Footer from "../../components/layout/Footer";
 import TopNavBar from "../../components/layout/TopNavBar";
 import { whyNoriuKalbetiContent } from "../../components/text/ContentTexts";
@@ -6,7 +7,7 @@ import contentPicture from "../../assets/images/homepage-image.jpg";
 export default function WhyNoriuKalbeti() {
   return (
     <div>
-      <TopNavBar></TopNavBar>
+      <TopNavBar />
       <div className="content-container">
         <img
           src={contentPicture}
@@ -15,7 +16,7 @@ export default function WhyNoriuKalbeti() {
         />
         <p className="main-content-text">{whyNoriuKalbetiContent}</p>
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

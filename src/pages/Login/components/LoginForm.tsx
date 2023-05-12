@@ -8,12 +8,12 @@ import {
   parseFirebaseErrorMessage,
 } from "../../../configs/FirebaseConfig";
 
-import "./LoginForm.css";
+import "../Login.css";
 import Button from "../../../components/ui/Button";
 import FormContainer from "../../../components/ui/FormContainer";
 import Input from "../../../components/ui/Input";
 
-const Login: React.FC = () => {
+export default function LoginForm() {
   const { login } = useAuthContext();
   const navigate = useNavigate();
 
@@ -90,6 +90,4 @@ const Login: React.FC = () => {
       </form>
     </FormContainer>
   );
-};
-
-export default Login;
+}

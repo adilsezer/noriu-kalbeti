@@ -12,7 +12,7 @@ import FormContainer from "../../../components/ui/FormContainer";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 
-const ForgotPasswordForm: React.FC = () => {
+export default function ForgotPasswordForm() {
   const { resetPassword } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
@@ -60,10 +60,8 @@ const ForgotPasswordForm: React.FC = () => {
         </Button>
       </form>
       <p>
-        <Link to="/login">Click here to go back to login page</Link>{" "}
+        <Link to="/login">Click here to go back to login page</Link>
       </p>
     </FormContainer>
   );
-};
-
-export default ForgotPasswordForm;
+}

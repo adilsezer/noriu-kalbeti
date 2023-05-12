@@ -1,3 +1,4 @@
+// Import necessary libraries and components
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -6,6 +7,7 @@ import AuthProvider from "./contexts/AuthContext";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
+// Render the main App component with React-Router and AuthProvider
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Router>

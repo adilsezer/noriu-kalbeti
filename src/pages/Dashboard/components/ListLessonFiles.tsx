@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ref, list, getDownloadURL, getMetadata } from "firebase/storage";
 import { storage } from "../../../configs/FirebaseConfig";
-import "../Dashboard.css";
 import { ClipLoader } from "react-spinners";
 import fileIcon from "../../../assets/images/file-icon.png";
 import pdfIcon from "../../../assets/images/pdf-icon.png";
@@ -15,25 +14,25 @@ interface LessonFile {
   description: string;
 }
 
+// Helper function to truncate text after specific character length
+const truncateText = (text: string, maxLength: number): string => {
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+};
+
+const createTitleText = (str: string): string => {
+  if (!str) return "No Lessons Found";
+  str = "Lesson Files For " + str.replace(/-/g, " ");
+  return str
+    .trim()
+    .replace(
+      /\w\S*/g,
+      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
+};
+
 export default function ListLessonFiles({ category }: { category: string }) {
   const [lessonPlans, setLessonPlans] = useState<LessonFile[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  // Helper function to truncate text after specific character length
-  const truncateText = (text: string, maxLength: number): string => {
-    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-  };
-
-  const createTitleText = (str: string): string => {
-    if (!str) return "No Lessons Found";
-    str = "Lesson Files For " + str.replace(/-/g, " ");
-    return str
-      .trim()
-      .replace(
-        /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-      );
-  };
 
   useEffect(() => {
     const listRef = ref(storage, "lesson-plans/" + category);
@@ -64,7 +63,9 @@ export default function ListLessonFiles({ category }: { category: string }) {
         );
         setLessonPlans(orderedItems);
       })
-      .catch((error) => {})
+      .catch((error) => {
+        console.error("Error fetching lesson files:", error);
+      })
       .finally(() => {
         setLoading(false);
       });

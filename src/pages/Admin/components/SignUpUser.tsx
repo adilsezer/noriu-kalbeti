@@ -10,7 +10,7 @@ import Input from "../../../components/ui/Input";
 import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
 
-const SignUpUser: React.FC = () => {
+export default function SignUpUser() {
   const { signup } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
@@ -81,5 +81,4 @@ const SignUpUser: React.FC = () => {
       </form>
     </FormContainer>
   );
-};
-export default SignUpUser;
+}

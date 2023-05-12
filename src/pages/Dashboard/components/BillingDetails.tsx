@@ -13,6 +13,21 @@ interface Meeting {
   updated_at: string;
 }
 
+const getMonthName = (month: number): string => {
+  const date = new Date(Date.UTC(2000, month, 1));
+  const monthName = date.toLocaleString("default", { month: "long" });
+
+  return monthName;
+};
+
+const filterMeetingsByMonth = (meetings: Meeting[], monthOffset: number) => {
+  const targetMonth = new Date().getMonth() + monthOffset;
+  return meetings.filter((meeting) => {
+    const startTime = new Date(meeting.start_time);
+    return startTime.getMonth() === targetMonth;
+  });
+};
+
 export default function BillingDetails() {
   const { user } = useAuthContext();
   const userEmail = user?.email || "";
@@ -23,38 +38,16 @@ export default function BillingDetails() {
     getCalendlyMeetings(userEmail).then((meetings) => setMeetings(meetings));
   }, [userEmail]);
 
-  const currentMonthMeetings = meetings.filter((meeting) => {
-    const startTime = new Date(meeting.start_time);
-    return startTime.getMonth() === new Date().getMonth();
-  });
-
-  const previousMonthMeetings = meetings.filter((meeting) => {
-    const startTime = new Date(meeting.start_time);
-    return startTime.getMonth() === new Date().getMonth() - 1;
-  });
-
-  const nextMonthMeetings = meetings.filter((meeting) => {
-    const startTime = new Date(meeting.start_time);
-    return startTime.getMonth() === new Date().getMonth() + 1;
-  });
+  const previousMonthMeetings = filterMeetingsByMonth(meetings, -1);
+  const currentMonthMeetings = filterMeetingsByMonth(meetings, 0);
+  const nextMonthMeetings = filterMeetingsByMonth(meetings, 1);
 
   const listMeetingsForMonth = (meetings: Meeting[]) => {
-    return meetings.map((meeting, index) => (
-      <div key={index}>
+    return meetings.map((meeting) => (
+      <div key={meeting.uri}>
         {new Date(meeting.start_time).toLocaleString()} - {meeting.name}
       </div>
     ));
-  };
-
-  const currentMonth = new Date().getMonth(); // get the current month as a number
-  const previousMonth = currentMonth - 1; // subtract 1 to get the previous month
-  const nextMonth = currentMonth + 1; // add 1 to get the next month
-
-  const getMonthName = (month: number): string => {
-    const date = new Date(Date.UTC(2000, month, 1)); // create a date object for the specified month
-    const monthName = date.toLocaleString("default", { month: "long" }); // get the month name using toLocaleString()
-
-    return monthName;
   };
 
   return (
@@ -70,17 +63,17 @@ export default function BillingDetails() {
         </thead>
         <tbody>
           <tr>
-            <td>{getMonthName(previousMonth)}</td>
+            <td>{getMonthName(new Date().getMonth() - 1)}</td>
             <td>{listMeetingsForMonth(previousMonthMeetings)}</td>
             <td>€{23 * previousMonthMeetings.length}</td>
           </tr>
           <tr>
-            <td>{getMonthName(currentMonth)}</td>
+            <td>{getMonthName(new Date().getMonth())}</td>
             <td>{listMeetingsForMonth(currentMonthMeetings)}</td>
             <td>€{23 * currentMonthMeetings.length}</td>
           </tr>
           <tr>
-            <td>{getMonthName(nextMonth)}</td>
+            <td>{getMonthName(new Date().getMonth() + 1)}</td>
             <td>{listMeetingsForMonth(nextMonthMeetings)}</td>
             <td>€{23 * nextMonthMeetings.length}</td>
           </tr>

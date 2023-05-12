@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
-import { displayToast } from "../../../utils/toast";
-import emailjs from "@emailjs/browser";
 import "../Contact.css";
+import sendEmail from "../../../utils/emailSender";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 export default function ContactForm() {
+  const { user } = useAuthContext();
   const form = useRef<HTMLFormElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
@@ -15,31 +16,11 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
-    const templateId = process.env
-      .REACT_APP_EMAILJS_MESSAGE_TEMPLATE_ID as string;
-    const userId = process.env.REACT_APP_EMAILJS_USER_ID as string;
-
     try {
-      if (!messageRef.current?.value)
-        displayToast("Feedback is required to send the email", {
-          type: "error",
-        });
-      else {
-        const response = await emailjs.sendForm(
-          serviceId,
-          templateId,
-          form.current as HTMLFormElement,
-          userId
-        );
-        console.log(response);
-        displayToast(
-          "Your message has been sent. We get back to you as soon as possible",
-          {
-            type: "success",
-          }
-        );
-      }
+      await sendEmail({
+        message: messageRef.current?.value || "",
+        userEmail: user?.email || "",
+      });
     } catch (error) {
       console.error(error);
     } finally {
