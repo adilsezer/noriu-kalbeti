@@ -46,5 +46,8 @@ export default async function sendEmail({
     }
   } catch (error) {
     console.error(error);
+    displayToast("Error sending message", {
+      type: "error",
+    });
   }
 }

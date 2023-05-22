@@ -12,8 +12,6 @@ export default function SideBar({ onItemSelect }: SidebarProps) {
     { title: "Next Lesson Details", path: "" },
     { title: "Billing Details", path: "" },
     { title: "Lesson Plan", path: "" },
-    { title: "Book a Lesson", path: "" },
-    { title: "FAQ", path: "" },
     { title: "Leave a Feedback", path: "" },
   ];
 

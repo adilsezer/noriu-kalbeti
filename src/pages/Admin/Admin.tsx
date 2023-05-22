@@ -9,12 +9,9 @@ import UploadALessonPlanFile from "./components/UploadALessonPlanFile";
 import AdminWelcome from "./components/AdminWelcome";
 
 export default function AdminPage() {
-  const [adminContentToRender, setAdminContentToRender] =
-    useState<JSX.Element>();
-
-  if (!adminContentToRender) {
-    setAdminContentToRender(<AdminWelcome />);
-  }
+  const [adminContentToRender, setAdminContentToRender] = useState<JSX.Element>(
+    <AdminWelcome />
+  );
 
   const handleAdminTaskListClick = (item: string) => {
     switch (item) {

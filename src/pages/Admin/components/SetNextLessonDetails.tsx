@@ -59,20 +59,6 @@ export default function SetNextLessonDetails() {
         ref={textareaActiveHWRef}
         placeholder="Enter Active Homework"
         onChange={handleOnChange}
-        style={{
-          resize: "none",
-          padding: "10px",
-          width: "50%",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
-          outline: "none",
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          display: "block",
-          marginLeft: "auto",
-          marginRight: "auto",
-          height: "150px",
-        }}
       />
       <Button className="button-component" onClick={writeUserLessonData}>
         Submit

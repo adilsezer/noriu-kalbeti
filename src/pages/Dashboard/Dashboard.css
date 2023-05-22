@@ -120,7 +120,7 @@ th {
   border: 0;
 }
 
-.feedback-textarea {
+.next-lesson-textarea {
   resize: none;
   padding: 10px;
   width: 75%;
@@ -132,4 +132,5 @@ th {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }

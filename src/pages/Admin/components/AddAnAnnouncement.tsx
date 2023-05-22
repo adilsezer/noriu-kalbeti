@@ -24,10 +24,33 @@ export default function AddAnAnnouncement() {
     return `${year}-${month}-${day}`;
   };
 
+  useEffect(() => {
+    const handleFirebase = async () => {
+      const db = getDatabase();
+      console.log(lastTwoAnnouncements);
+
+      const announcementsRef = ref(db, "announcements/");
+      const snapshot = await get(announcementsRef);
+      if (snapshot.exists()) {
+        setLastTwoAnnouncements([
+          {
+            text: snapshot.val().announcement1.text,
+            date: snapshot.val().announcement1.date,
+          },
+          {
+            text: snapshot.val().announcement2.text,
+            date: snapshot.val().announcement2.date,
+          },
+        ]);
+      } else {
+        console.log("No data available");
+      }
+    };
+    handleFirebase();
+  }, []);
+
   const addAnnouncement = async () => {
-    const db = getDatabase();
-    console.log(lastTwoAnnouncements);
-    await set(ref(db, "announcements/"), {
+    await set(ref(getDatabase(), "announcements/"), {
       announcement1: { text: newAnnouncement, date: currentDate() },
       announcement2: {
         text: lastTwoAnnouncements?.[0]?.text ?? "",
@@ -52,39 +75,6 @@ export default function AddAnAnnouncement() {
     }
   };
 
-  useEffect(() => {
-    getLastTwoAnnouncements().then((announcements) => {
-      setLastTwoAnnouncements(announcements);
-    });
-  }, []);
-
-  const getLastTwoAnnouncements = async (): Promise<Announcement[] | null> => {
-    const db = getDatabase();
-    const refPath = "announcements/";
-
-    try {
-      const snapshot = await get(ref(db, refPath));
-      if (snapshot.exists()) {
-        return [
-          {
-            text: snapshot.val().announcement1.text,
-            date: snapshot.val().announcement1.date,
-          },
-          {
-            text: snapshot.val().announcement2.text,
-            date: snapshot.val().announcement2.date,
-          },
-        ];
-      } else {
-        console.log("No data available");
-        return null;
-      }
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewAnnouncement(e.target.value);
   };
@@ -102,20 +92,6 @@ export default function AddAnAnnouncement() {
         ref={textareaAnnouncementRef}
         placeholder="Enter An Announcement"
         onChange={handleOnChange}
-        style={{
-          resize: "none",
-          padding: "10px",
-          width: "50%",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
-          outline: "none",
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          display: "block",
-          marginLeft: "auto",
-          marginRight: "auto",
-          height: "150px",
-        }}
       />
       <Button className="button-component" onClick={addAnnouncement}>
         Submit

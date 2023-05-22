@@ -6,8 +6,6 @@ import NextLessonContent from "./components/NextLessonContent";
 import AccountDetails from "./components/AccountDetails";
 import BillingDetails from "./components/BillingDetails";
 import LessonPlans from "./components/LessonPlans";
-import InlineComponent from "./components/BookLesson";
-import FAQ from "./components/FAQ";
 import LeaveFeedback from "./components/LeaveFeedback";
 import Announcements from "./components/Announcements";
 import DashboardWelcome from "./components/DashboardWelcome";
@@ -23,8 +21,6 @@ export default function Dashboard() {
     "Next Lesson Details": <NextLessonContent />,
     "Billing Details": <BillingDetails />,
     "Lesson Plan": <LessonPlans />,
-    "Book a Lesson": <InlineComponent />,
-    FAQ: <FAQ />,
     "Leave a Feedback": <LeaveFeedback />,
   };
 

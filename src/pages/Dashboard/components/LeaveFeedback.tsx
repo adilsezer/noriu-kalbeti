@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
-import { displayToast } from "../../../utils/toast";
 import "../Dashboard.css";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import sendEmail from "../../../utils/emailSender";
@@ -22,24 +21,16 @@ export default function LeaveFeedback() {
         message: messageRef.current?.value || "",
         userEmail: user?.email || "",
       });
-    } catch (error) {
-      catchError(error);
+      messageRef.current!.value = "";
     } finally {
       setLoading(false);
     }
   };
 
-  const catchError = (error: any) => {
-    console.error(error);
-    displayToast("An error occurred while sending the feedback", {
-      type: "error",
-    });
-  };
-
   return (
     <div>
       <h1 className="dashboard-text">Send Your Feedback</h1>
-      <p className="dashboard-text">Your feedback will be send anonymously</p>
+      <p className="dashboard-text">Your feedback will be sent anonymously</p>
       <form ref={form} onSubmit={onSubmit}>
         <textarea
           id="message"
@@ -48,7 +39,6 @@ export default function LeaveFeedback() {
           rows={15}
           ref={messageRef}
           placeholder="Feedback text here..."
-          className="feedback-textarea"
         />
         <div className="dashboard-text">
           <Button type="submit" disabled={loading} className="button-component">

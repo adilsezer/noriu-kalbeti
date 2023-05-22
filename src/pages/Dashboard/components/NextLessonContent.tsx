@@ -1,5 +1,5 @@
 import { ref, getDatabase, get, child } from "firebase/database";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import "../Dashboard.css";
 import getUpcomingLesson from "./GetUpcomingLesson";
@@ -7,12 +7,12 @@ import { ClipLoader } from "react-spinners";
 import Button from "../../../components/ui/Button";
 import sendEmail from "../../../utils/emailSender";
 
-type usersDBEntry = {
+type UsersDBEntry = {
   key: string;
   value: any;
 };
 
-type usersDBType = usersDBEntry[];
+type UsersDBType = UsersDBEntry[];
 
 interface Meeting {
   uri: string;
@@ -27,87 +27,52 @@ interface Meeting {
 export default function NextLessonContent() {
   const { user } = useAuthContext();
   const userEmail = user?.email || "";
-  const [usersDBEntries, setUsersDBEntries] = useState<usersDBType>([]);
+  const [usersDBEntries, setUsersDBEntries] = useState<UsersDBType>([]);
   const [upcomingMeeting, setUpcomingMeeting] = useState<Meeting>();
-  const emailForm = useRef<HTMLFormElement>(null);
-
   const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setLoading(true);
 
     try {
       await sendEmail({
         message: message,
-        userEmail: user?.email || "",
+        userEmail: userEmail,
       });
-    } catch (error) {
-      console.error(error);
     } finally {
       setLoading(false);
+      setMessage("");
     }
   };
 
-  const dbRef = ref(getDatabase());
   useEffect(() => {
+    const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${user?.uid}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const usersDBData = snapshot.val();
-          const usersDBEntriesArray = Object.entries(usersDBData).sort(
-            (a, b) => {
-              return b[0].localeCompare(a[0]);
-            }
+          const usersDBEntriesArray = Object.entries(usersDBData).sort((a, b) =>
+            b[0].localeCompare(a[0])
           );
-
-          const sortedUsersDBEntries: usersDBType = usersDBEntriesArray.map(
+          const sortedUsersDBEntries: UsersDBType = usersDBEntriesArray.map(
             ([key, value]) => ({ key, value })
           );
           setUsersDBEntries(sortedUsersDBEntries);
-        } else {
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [dbRef, user?.uid]);
-
-  const formatTitle = (text: string): string =>
-    text.replace(/-/g, " ").replace(/\b\w/g, (match) => match.toUpperCase());
+      .catch((error) => console.error(error));
+  }, [user?.uid]);
 
   useEffect(() => {
     getUpcomingLesson(userEmail).then((meeting) => {
-      if (meeting) {
-        setUpcomingMeeting(meeting);
-      }
+      if (meeting) setUpcomingMeeting(meeting);
     });
   }, [userEmail]);
 
-  const listItems = (
-    <table>
-      <tbody>
-        <tr>
-          <th>Next Lesson Date</th>
-          <td>
-            {upcomingMeeting?.start_time
-              ? new Date(upcomingMeeting.start_time).toLocaleString()
-              : "No Lesson"}
-          </td>
-        </tr>
-        {usersDBEntries.map(
-          (userDBEntry, index) =>
-            userDBEntry.key !== "userName" && (
-              <tr key={index}>
-                <th>{formatTitle(userDBEntry.key)}</th>
-                <td>{userDBEntry.value.toString()}</td>
-              </tr>
-            )
-        )}
-      </tbody>
-    </table>
-  );
+  const formatTitle = (text: string): string =>
+    text.replace(/-/g, " ").replace(/\b\w/g, (match) => match.toUpperCase());
 
   return (
     <div>
@@ -122,9 +87,29 @@ export default function NextLessonContent() {
           : "No Lesson"}
       </p>
 
-      {listItems}
+      <table>
+        <tbody>
+          <tr>
+            <th>Next Lesson Date</th>
+            <td>
+              {upcomingMeeting?.start_time
+                ? new Date(upcomingMeeting.start_time).toLocaleString()
+                : "No Lesson"}
+            </td>
+          </tr>
+          {usersDBEntries.map(
+            (userDBEntry, index) =>
+              userDBEntry.key !== "userName" && (
+                <tr key={index}>
+                  <th>{formatTitle(userDBEntry.key)}</th>
+                  <td>{userDBEntry.value.toString()}</td>
+                </tr>
+              )
+          )}
+        </tbody>
+      </table>
       <br />
-      <form ref={emailForm} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <p className="dashboard-text">
           Send a message to your teacher for the next lesson
         </p>
@@ -134,35 +119,13 @@ export default function NextLessonContent() {
           name="message"
           required
           rows={10}
-          value={
-            message.endsWith("Sent by: " + user?.email || "")
-              ? message
-              : message + "\nSent by: " + user?.email
-          }
+          value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Enter your message here..."
-          style={{
-            resize: "none",
-            padding: "10px",
-            width: "75%",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            outline: "none",
-            fontFamily: "inherit",
-            fontSize: "inherit",
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginBottom: "20px",
-          }}
         />
 
         <div className="dashboard-text">
-          <Button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="button-component"
-          >
+          <Button type="submit" disabled={loading} className="button-component">
             {loading ? <ClipLoader size={25} color="#FFF" /> : "Send Email"}
           </Button>
         </div>

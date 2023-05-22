@@ -22,11 +22,11 @@ export default function TopNavBar() {
   const generalNavItems: NavItem[] = [
     { key: "home", path: "/", label: "Home" },
     {
-      key: "why-noriu-kalbeti",
-      path: "/why-noriu-kalbeti",
-      label: "Why Noriu Kalbeti?",
+      key: "book-lesson",
+      path: "/book-lesson",
+      label: "Book a Lesson",
     },
-    { key: "references", path: "/references", label: "References" },
+    { key: "faq", path: "/faq", label: "FAQ" },
     { key: "contact", path: "/contact", label: "Contact" },
   ];
 

@@ -21,10 +21,9 @@ export default function SignupForm() {
         message: "Please verify my account",
         userEmail: emailRef.current?.value || "",
       });
-    } catch (error) {
-      console.error(error);
     } finally {
       setLoading(false);
+      emailRef.current!.value = "";
     }
   };
 

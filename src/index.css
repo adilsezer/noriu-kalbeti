@@ -29,3 +29,18 @@ p,
 strong {
   color: var(--secondary-color);
 }
+
+textarea {
+  resize: none;
+  padding: 10px;
+  width: 75%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}

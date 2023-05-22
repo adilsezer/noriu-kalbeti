@@ -6,12 +6,12 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/SignUp/Signup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import WhyNoriuKalbeti from "./pages/WhyNoriuKalbeti/WhyNoriuKalbeti";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import References from "./pages/References/References";
 import Contact from "./pages/Contact/Contact";
 import Admin from "./pages/Admin/Admin";
 import Loader from "./components/ui/Loader";
+import BookLesson from "./pages/BookLesson/BookLesson";
+import FAQ from "./pages/FAQ/FAQ";
 
 export default function App() {
   const { isAuthenticated, loading, user } = useAuthContext();
@@ -27,8 +27,8 @@ export default function App() {
         {/* Define routes for the application */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/why-noriu-kalbeti" element={<WhyNoriuKalbeti />} />
-          <Route path="/references" element={<References />} />
+          <Route path="/book-lesson" element={<BookLesson />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
 
           {isAuthenticated && user?.isAdmin && (

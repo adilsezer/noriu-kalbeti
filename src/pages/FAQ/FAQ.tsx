@@ -1,3 +1,7 @@
+import Footer from "../../components/layout/Footer";
+import TopNavBar from "../../components/layout/TopNavBar";
+import "./FAQ.css";
+
 export default function FAQ() {
   const faqs = [
     {
@@ -24,14 +28,15 @@ export default function FAQ() {
 
   return (
     <div>
-      <h1 className="dashboard-text">FAQ</h1>
+      <TopNavBar />
+      <h1 className="faq-title">FAQ</h1>
       {faqs.map((faq, index) => (
         <div key={index}>
-          <b>{faq.question}</b>
-          <p>{faq.answer}</p>
-          {index < faqs.length - 1 && <br />}
+          <div className="faq-question">{faq.question}</div>
+          <div className="faq-answer">{faq.answer}</div>
         </div>
       ))}
+      <Footer />
     </div>
   );
 }
