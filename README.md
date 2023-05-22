@@ -1,4 +1,4 @@
-# Language School Platform
+# Noriu Kalbeti
 
 This project is a web application developed with React for a language school platform. It provides various features to track students' progress, book lessons, manage user accounts, and more.
 
