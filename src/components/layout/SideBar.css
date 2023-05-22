@@ -10,17 +10,6 @@
   list-style: none;
 }
 
-.side-bar-links a {
-  display: block;
-  padding: 15px 15px;
-  color: #333;
-  text-decoration: none;
-}
-
-.side-bar-links a:hover {
-  background-color: #a86672;
-}
-
 .side-bar-link-active {
   background-color: #c6304b;
   font-weight: bold;
@@ -30,8 +19,13 @@
   background-color: #f5f5f5;
 }
 
+.side-bar-link:hover {
+  background-color: #c6304b;
+}
+
 .side-bar-link {
   border-bottom: 1px solid #c6304b;
+  padding: 15px 15px;
 }
 
 .side-bar-links li:last-child .side-bar-link {

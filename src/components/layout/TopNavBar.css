@@ -44,3 +44,17 @@
 .top-navbar a:active {
   color: #c6304b;
 }
+
+.nav-button {
+  background: none;
+  border: none;
+  color: #222341;
+  font: inherit;
+  cursor: pointer;
+  padding: 15px 17px;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  color: #c6304b;
+}

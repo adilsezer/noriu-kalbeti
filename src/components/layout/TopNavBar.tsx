@@ -1,38 +1,41 @@
 import "./TopNavBar.css";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import appLogo from "../../assets/images/app-logo.png";
 import { displayToast } from "../../utils/toast";
 
 interface NavItem {
   key: string;
-  path: string;
+  path?: string;
   label: string;
   onClick?: () => void;
 }
 
 export default function TopNavBar() {
+  const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuthContext();
 
-  const handleLogout = () => {
-    logout();
-    displayToast("Successfully Logged Out", { type: "info" });
+  const handleLogout = async () => {
+    try {
+      await logout();
+      displayToast("Successfully Logged Out", { type: "info" });
+      navigate("/");
+    } catch (error) {
+      displayToast("Failed to Logout", { type: "error" });
+    }
   };
 
   const generalNavItems: NavItem[] = [
     { key: "home", path: "/", label: "Home" },
-    {
-      key: "book-lesson",
-      path: "/book-lesson",
-      label: "Book a Lesson",
-    },
+    { key: "book-lesson", path: "/book-lesson", label: "Book a Lesson" },
     { key: "faq", path: "/faq", label: "FAQ" },
     { key: "contact", path: "/contact", label: "Contact" },
   ];
 
   const authenticatedNavItems: NavItem[] = [
     { key: "dashboard", path: "/dashboard", label: "Dashboard" },
-    { key: "logout", path: "/", label: "Logout", onClick: handleLogout },
+    { key: "logout", label: "Logout", onClick: handleLogout },
   ];
 
   const unauthenticatedNavItems: NavItem[] = [
@@ -44,35 +47,37 @@ export default function TopNavBar() {
     ? authenticatedNavItems
     : unauthenticatedNavItems;
 
+  const NavItemComponent = ({ key, path, label, onClick }: NavItem) => (
+    <li key={key}>
+      {onClick ? (
+        <button onClick={onClick} className="nav-button">
+          {label}
+        </button>
+      ) : (
+        <NavLink to={path || ""} aria-label={label}>
+          {label}
+        </NavLink>
+      )}
+    </li>
+  );
+
   return (
     <header className="header">
-      <div className="left">
+      <nav className="left">
         <NavLink to="/">
           <img src={appLogo} alt="Logo" className="app-logo" />
         </NavLink>
-      </div>
-      <div className="mid">
+      </nav>
+      <nav className="mid">
         <ul className="top-navbar">
-          {generalNavItems.map(({ key, path, label, onClick }) => (
-            <li key={key}>
-              <NavLink to={path} onClick={onClick}>
-                {label}
-              </NavLink>
-            </li>
-          ))}
+          {generalNavItems.map((item) => NavItemComponent(item))}
         </ul>
-      </div>
-      <div className="right">
+      </nav>
+      <nav className="right">
         <ul className="top-navbar">
-          {extraNavItemsToRender.map(({ key, path, label, onClick }) => (
-            <li key={key}>
-              <NavLink to={path} onClick={onClick}>
-                {label}
-              </NavLink>
-            </li>
-          ))}
+          {extraNavItemsToRender.map((item) => NavItemComponent(item))}
         </ul>
-      </div>
+      </nav>
     </header>
   );
 }

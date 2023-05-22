@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./SideBar.css";
 
@@ -8,11 +7,11 @@ interface SidebarProps {
 
 export default function SideBar({ onItemSelect }: SidebarProps) {
   const links = [
-    { title: "Account Details", path: "" },
-    { title: "Next Lesson Details", path: "" },
-    { title: "Billing Details", path: "" },
-    { title: "Lesson Plan", path: "" },
-    { title: "Leave a Feedback", path: "" },
+    { title: "Account Details" },
+    { title: "Next Lesson Details" },
+    { title: "Billing Details" },
+    { title: "Lesson Plan" },
+    { title: "Leave a Feedback" },
   ];
 
   const [selectedItem, setSelectedItem] = useState("");
@@ -27,18 +26,14 @@ export default function SideBar({ onItemSelect }: SidebarProps) {
       <ul className="side-bar-links">
         {links.map((link) => (
           <li key={link.title}>
-            <NavLink
-              to={link.path}
+            <div
               className={`side-bar-link ${
                 link.title === selectedItem ? "side-bar-link-active" : ""
               }`}
-              onClick={() => {
-                setSelectedItem("");
-                handleClick(link.title);
-              }}
+              onClick={() => handleClick(link.title)}
             >
               {link.title}
-            </NavLink>
+            </div>
           </li>
         ))}
       </ul>
