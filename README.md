@@ -1,6 +1,10 @@
-# Noriu Kalbeti
+# Language School Platform
 
 This project is a web application developed with React for a language school platform. It provides various features to track students' progress, book lessons, manage user accounts, and more.
+
+## Website
+
+The website is live and can be accessed at [https://sezerad.github.io/noriu-kalbeti](https://sezerad.github.io/noriu-kalbeti).
 
 ## Features
 
@@ -41,13 +45,13 @@ To connect the application to your Firebase project, you need to set up the Fire
 3. Open the `.env` file in the project root directory.
 4. Replace the placeholder values with your actual Firebase configuration details:
 
-   REACT_APP_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
-   REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
-   REACT_APP_FIREBASE_DATABASE_URL=YOUR_FIREBASE_DATABASE_URL
-   REACT_APP_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
-   REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_FIREBASE_STORAGE_BUCKET
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_FIREBASE_MESSAGING_SENDER_ID
-   REACT_APP_FIREBASE_APP_ID=YOUR_FIREBASE_APP_ID
+REACT_APP_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
+REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
+REACT_APP_FIREBASE_DATABASE_URL=YOUR_FIREBASE_DATABASE_URL
+REACT_APP_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
+REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_FIREBASE_STORAGE_BUCKET
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_FIREBASE_MESSAGING_SENDER_ID
+REACT_APP_FIREBASE_APP_ID=YOUR_FIREBASE_APP_ID
 
 ## Usage
 
@@ -64,4 +68,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries or suggestions, please feel free to reach out to [sezeradil@gmail.com](mailto:sezeradil@gmail.com).
+For any inquiries or suggestions, please feel free to reach out to [your-email@example.com](mailto:your-email@example.com).
