@@ -5,7 +5,6 @@ import contentPicture from "../../assets/images/homepage-image.jpg";
 import {
   homePageContent,
   homePageContent2,
-  homePageContent3,
 } from "../../components/text/ContentTexts";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
         <p className="main-content-text">{homePageContent}</p>
       </div>
       <div className="home-sub-text">{homePageContent2}</div>
-      <div className="home-sub-text">{homePageContent3}</div>
       <Footer />
     </div>
   );
