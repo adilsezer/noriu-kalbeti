@@ -47,7 +47,7 @@ export default function AddAnAnnouncement() {
       }
     };
     handleFirebase();
-  }, [lastTwoAnnouncements]);
+  }, []);
 
   const addAnnouncement = async () => {
     await set(ref(getDatabase(), "announcements/"), {
