@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/noriu-kalbeti/static/css/main.2d5b0147.css",
-    "main.js": "/noriu-kalbeti/static/js/main.d566745b.js",
+    "main.js": "/noriu-kalbeti/static/js/main.b053067c.js",
     "static/media/homepage-image.jpg": "/noriu-kalbeti/static/media/homepage-image.762be6f7bdcbc97b3ca7.jpg",
     "static/media/app-logo.png": "/noriu-kalbeti/static/media/app-logo.ec34ca251f8572d67727.png",
     "index.html": "/noriu-kalbeti/index.html",
     "main.2d5b0147.css.map": "/noriu-kalbeti/static/css/main.2d5b0147.css.map",
-    "main.d566745b.js.map": "/noriu-kalbeti/static/js/main.d566745b.js.map"
+    "main.b053067c.js.map": "/noriu-kalbeti/static/js/main.b053067c.js.map"
   },
   "entrypoints": [
     "static/css/main.2d5b0147.css",
-    "static/js/main.d566745b.js"
+    "static/js/main.b053067c.js"
   ]
 }
